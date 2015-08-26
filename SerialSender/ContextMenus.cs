@@ -101,7 +101,7 @@ namespace SerialSender
             StateObjClass StateObj = new StateObjClass();
             StateObj.TimerCanceled = false;
             System.Threading.TimerCallback TimerDelegate = new System.Threading.TimerCallback(dataCheck);
-            System.Threading.Timer TimerItem = new System.Threading.Timer(TimerDelegate, StateObj, 2000, 2000);
+            System.Threading.Timer TimerItem = new System.Threading.Timer(TimerDelegate, StateObj, 5000, 5000);
             StateObj.TimerReference = TimerItem;
             // SelectedSerialPort.WriteLine("Send Data \n");
         }
@@ -128,7 +128,11 @@ namespace SerialSender
                             if (s.Value != null)
                             {
                             
-                                SelectedSerialPort.WriteLine(s.Name +  ": " + (int)s.Value + "c");
+                                if ( s.Name == "CPU Total")
+                                {
+                                    SelectedSerialPort.WriteLine((int)s.Value + "|");
+                                }
+                                
                                
                                 Console.WriteLine("Value");
                                 Console.WriteLine(s.Name);
