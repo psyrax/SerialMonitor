@@ -191,7 +191,7 @@ namespace SerialSender
                     if ( process.ProcessName == "AIMP3")
                     {
                         curSong = process.MainWindowTitle;
-                    } else if ( process.ProcessName == "foobar2000")
+                    } else if ( process.ProcessName == "foobar2000" && (process.MainWindowTitle.IndexOf("[") > 0 ) )
                     {
                         curSong = process.MainWindowTitle.Substring(0, process.MainWindowTitle.IndexOf("[")-1);
                     }
