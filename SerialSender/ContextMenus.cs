@@ -113,6 +113,8 @@ namespace SerialSender
         private void dataCheck(object StateObj)
         {
             string cpuTemp ="";
+            string gpuTemp = "";
+            string gpuLoad = "";
             string cpuLoad="";
             string ramUsed = "";
 ;
@@ -134,12 +136,14 @@ namespace SerialSender
                     {
                         if (s.Value != null)
                         {
+                            int curTemp = (int)s.Value;
                             switch (s.Name)
                             {
                                 case "CPU Package":
-                                    int curTemp = (int)s.Value;
-                                       
                                     cpuTemp = curTemp.ToString();
+                                    break;
+                                case "GPU Core":
+                                    gpuTemp = curTemp.ToString();
                                     break;
 
                             }
@@ -149,11 +153,14 @@ namespace SerialSender
                     {
                         if ( s.Value != null)
                         {
-                            switch(s.Name)
+                            int curLoad = (int)s.Value;
+                            switch (s.Name)
                             {
                                 case "CPU Total":
-                                    int curLoad = (int)s.Value;
                                     cpuLoad = curLoad.ToString();
+                                    break;
+                                case "GPU Core":
+                                    gpuLoad = curLoad.ToString();
                                     break;
                             }
                         }
@@ -190,7 +197,7 @@ namespace SerialSender
                     }
                 }
             }
-            string arduinoData = "C" + cpuTemp + "c " + cpuLoad + "%|R"+ ramUsed +"G|S" + curSong + "|";
+            string arduinoData = "C" + cpuTemp + "c " + cpuLoad + "%|G" + gpuTemp +"c " + gpuLoad + "%|R"+ ramUsed +"G|S" + curSong + "|";
             SelectedSerialPort.WriteLine(arduinoData);
 
         }
